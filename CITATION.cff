@@ -1,0 +1,12 @@
+﻿cff-version: 1.2.0
+title: "HEV Spare Parts — ML (Demand & Price)"
+message: "If you use this code, please cite it."
+type: software
+authors:
+  - family-names: "YourLastName"
+    given-names: "YourFirstName"
+repository-code: "https://github.com/Oyaeesh/hev-spareparts-ml"
+license: MIT
+version: "1.0.0"
+date-released: "2025-01-01"
+keywords: [HEV, spare-parts, demand-classification, price-prediction, ML]
