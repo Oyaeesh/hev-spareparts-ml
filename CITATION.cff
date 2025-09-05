@@ -1,12 +1,66 @@
-﻿cff-version: 1.2.0
-title: "HEV Spare Parts — ML (Demand & Price)"
-message: "If you use this code, please cite it."
-type: software
+cff-version: 1.2.0
+message: "If you use this work, please cite it using the metadata below."
+title: "A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Parts Using Their Price and Demand"
+abstract: >
+  With the rapid growth of the hybrid electric vehicle (HEV) market, stakeholders must
+  refine after-sales logistics, particularly Spare Parts (SPs) provisioning. Adequate
+  forecasting of demand and pricing underpins these efforts. This paper presents a Feed
+  Forward Artificial Neural Network (FF ANN) that, drawing on 15 predictor variables,
+  assigns each spare part to low, medium, or high categories for both demand and price.
+  The resulting scheme enables judicious inventory management, optimized procurement, and
+  reduced operational spending by synchronizing supply with realistic forecasts. Explainable
+  Artificial Intelligence (XAI) techniques were then incorporated to enhance model
+  interpretability by identifying key influencing factors. The results indicated that
+  factors such as failure rate, number of cars, car age, and average total maintenance cost
+  have a high relative impact on demand prediction outcomes. Whereas factors such as part
+  type, online price, and the new/used parts have high impacts on the price prediction model.
 authors:
-  - family-names: "YourLastName"
-    given-names: "YourFirstName"
+  - family-names: Abueed
+    given-names: Omar
+    email: Oabueed1@binghamton.edu
+    affiliation: Binghamton University
+    corresponding: true
+  - family-names: Yaeesh
+    given-names: Osamah
+    email: oaliyaeesh@binghamton.edu
+    affiliation: Binghamton University
+  - family-names: AlAlaween
+    given-names: "Wafa'"
+    email: wafa.alalaween@ju.edu
+    affiliation: University of Jordan
+  - family-names: Abueed
+    given-names: Saleh
+    email: Salehabueed9@gmail.com
+  - family-names: Alalawin
+    given-names: Abdallah
+    email: AbdallahH_Ab@hu.edu.jo
 repository-code: "https://github.com/Oyaeesh/hev-spareparts-ml"
+url: "https://github.com/Oyaeesh/hev-spareparts-ml"
 license: MIT
-version: "1.0.0"
-date-released: "2025-01-01"
-keywords: [HEV, spare-parts, demand-classification, price-prediction, ML]
+version: "0.1.0"
+date-released: "2025-09-05"
+keywords:
+  - Artificial neural network
+  - Explainable AI
+  - Hybrid electric vehicles
+  - Supply chain
+  - Spare parts
+  - Demand classification
+  - Price prediction
+preferred-citation:
+  type: article
+  title: "A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Parts Using Their Price and Demand"
+  authors:
+    - family-names: Abueed
+      given-names: Omar
+    - family-names: Yaeesh
+      given-names: Osamah
+    - family-names: AlAlaween
+      given-names: "Wafa'"
+    - family-names: Abueed
+      given-names: Saleh
+    - family-names: Alalawin
+      given-names: Abdallah
+  year: "2025"
+  notes: "Software and code repository accompanying the study."
+  url: "https://github.com/Oyaeesh/hev-spareparts-ml"
