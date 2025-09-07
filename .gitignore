@@ -12,6 +12,5 @@ requirements.txt.backup.*
 .vscode/
 
 # Ignore all data files except demand.csv and price.csv
-data/*
 !data/demand.csv
 !data/price.csv
