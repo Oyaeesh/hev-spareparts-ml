@@ -12,3 +12,7 @@ __pycache__/
 .DS_Store
 *.bak
 .python-version
+
+# Ignore backups and VSCode
+requirements.txt.backup.*
+.vscode/
