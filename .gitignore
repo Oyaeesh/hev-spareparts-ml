@@ -1,18 +1,17 @@
-﻿.venv/
-__pycache__/
-.ipynb_checkpoints/
-data/
-*.pyc
-.DS_Store
-
-# local envs and caches
+# Ignore virtual environments and caches
 .venv/
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
+*.pyc
 *.bak
 .python-version
 
 # Ignore backups and VSCode
 requirements.txt.backup.*
 .vscode/
+
+# Ignore all data files except demand.csv and price.csv
+data/*
+!data/demand.csv
+!data/price.csv
