@@ -14,3 +14,13 @@ requirements.txt.backup.*
 # Ignore all data files except demand.csv and price.csv
 !data/demand.csv
 !data/price.csv
+# Notebook artifacts / models / tuner caches
+notebooks/tuner_runs/
+notebooks/tuner_tmp/
+notebooks/*.keras
+notebooks/*.h5
+notebooks/*.png
+notebooks/label_thresholds.txt
+
+# Outputs
+outputs/
