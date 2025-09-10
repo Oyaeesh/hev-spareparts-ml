@@ -21,14 +21,14 @@ _Keywords: Artificial neural network, Explainable AI, Hybrid electric vehicles, 
 ## Repository structure
 
 .
-├─ src/  
-│  ├─ Omar's Project (Demand).ipynb      # Demand classification end-to-end  
-│  └─ price-prediction.ipynb             # (placeholder to be added)  
-├─ data/  
-│  └─ Demand.csv                         # (you place this file locally; not committed)  
-├─ requirements.txt                      # Pinned runtime deps  
-├─ README.md  
-├─ LICENSE  
+├─ src/
+│  └─ HEV-SpareParts-Demand-Classification.ipynb  # Demand classification end-to-end
+├─ data/
+│  └─ demand.csv                         # Sample dataset for the notebook
+├─ requirements.txt                      # Pinned runtime deps
+├─ README.md
+├─ CITATION.cff
+├─ LICENSE
 └─ .gitignore
 
 ---
@@ -72,14 +72,14 @@ Upgrade pip & install deps: `python -m pip install --upgrade pip` then `pip inst
 3) **(Optional) Add a Jupyter kernel for VS Code**  
 Run: `python -m ipykernel install --user --name hev-spareparts-ml --display-name "Python (.venv) hev-spareparts-ml"`.
 
-4) **Place the dataset**  
-Put your CSV at: `data/Demand.csv`.  
-In the notebook we reference it via a relative path:  
-`from pathlib import Path`  
-`file_path = Path("data") / "Demand.csv"`
+4) **Ensure the dataset is available**
+The notebook expects `data/demand.csv` (a sample file is provided).
+In the notebook we reference it via a relative path:
+`from pathlib import Path`
+`file_path = Path("data") / "demand.csv"`
 
-5) **Run the notebook**  
-Open `src/Omar's Project (Demand).ipynb` in VS Code → select the `Python (.venv) hev-spareparts-ml` kernel → run all cells.
+5) **Run the notebook**
+Open `src/HEV-SpareParts-Demand-Classification.ipynb` in VS Code → select the `Python (.venv) hev-spareparts-ml` kernel → run all cells.
 
 ---
 
@@ -92,7 +92,7 @@ Open `src/Omar's Project (Demand).ipynb` in VS Code → select the `Python (.ven
 
 ## Price prediction
 
-A companion notebook `src/price-prediction.ipynb` will mirror the same engineering (grouped splits, preprocessing, tuning) for **price** classification (low/medium/high). The README will be updated once added.
+A companion notebook for **price** classification (low/medium/high) will mirror the same engineering (grouped splits, preprocessing, tuning) once added. The README will be updated when that notebook becomes available.
 
 ---
 
