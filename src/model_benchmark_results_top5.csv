@@ -1,0 +1,6 @@
+key,model,best_params,inner_macro_f1,test_accuracy,test_macro_f1
+svc_rbf,SVC (RBF),"{'C': 3.0, 'gamma': 'auto'}",0.9646,0.9621,0.9626
+logreg,LogisticRegression,"{'C': 1.0, 'solver': 'lbfgs', 'max_iter': 2000}",0.9369,0.9359,0.9366
+sgd,SGDClassifier (log_loss),"{'loss': 'log_loss', 'alpha': 0.001, 'max_iter': 2000, 'random_state': 42}",0.8913,0.93,0.9302
+et,ExtraTrees,"{'n_estimators': 400, 'max_depth': None}",0.8794,0.9124,0.9132
+lda,LinearDiscriminantAnalysis,{'solver': 'svd'},0.787,0.7762,0.7807
