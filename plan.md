@@ -33,7 +33,7 @@ Build a production-ready Jupyter notebook (`src/HEV-SpareParts-Price-Classificat
 ## 6. Checklist (execute sequentially)
 1. Profile `data/Price.csv`: inspect schema, dtypes, duplicates, missingness, and value distributions for potential preprocessing tweaks.
 2. Decide and document feature taxonomy, leak-prone feature handling, and numeric transforms based on profiling results.
-3. Scaffold the price notebook structure (markdown + empty code cells) mirroring the demand notebookâ€™s flow.
+3. Scaffold the price notebook structure (markdown + empty code cells) mirroring the demand notebook lifecycle.
 4. Implement data loading, cleaning, and preprocessing helper functions in the notebook.
 5. Implement train/test grouped split, binning logic, and leakage checks.
 6. Implement ANN hyperparameter tuning, final training, evaluation plots, and grouped CV.
@@ -51,7 +51,7 @@ Build a production-ready Jupyter notebook (`src/HEV-SpareParts-Price-Classificat
 ## 8. Progress Log
 - 2025-09-21T19:28:04: Completed Step 2 (feature taxonomy decisions). Documented duplicate removal and exclusion of 'on line price'.
 - 2025-09-21T19:27:49: Completed Step 1 (data profiling). Identified 60 duplicates and confirmed 'on line price' as leak risk.
-- 2025-09-21T19:43:36: Completed Step 3-9 â€” Implemented notebook scaffold, preprocessing helpers, model pipelines, benchmarks, leakage audit, and SHAP section..
-- 2025-09-21T19:43:36: Completed Step 10 â€” Executed notebook via nbconvert without errors..
-- 2025-09-21T19:43:36: Completed Step 11 â€” Verified SHAP figures in figures/ and captured key outputs..
+- 2025-09-21T19:43:36: Completed Step 3-9 – Implemented notebook scaffold, preprocessing helpers, model pipelines, benchmarks, leakage audit, and SHAP section..
+- 2025-09-21T19:43:36: Completed Step 10 – Executed notebook via nbconvert without errors..
+- 2025-09-21T19:43:36: Completed Step 11 – Verified SHAP figures in figures/ and captured key outputs..
 - 2025-09-21T22:36:27: Iterated on price notebook to improve accuracy (expanded grids, optional random split, FP32 pipeline).

@@ -1,4 +1,16 @@
 {
+  "blocklist": [
+    "predicted_price",
+    "price",
+    "price bin",
+    "price category",
+    "price tier",
+    "price_bin",
+    "price_category",
+    "price_tier",
+    "repair_to_price",
+    "target"
+  ],
   "feature_schema": {
     "categorical": [
       "car type",
@@ -6,7 +18,8 @@
       "original/imitator",
       "new\\used",
       "selling location",
-      "service location (repair shop/automotive company"
+      "service location (repair shop/automotive company",
+      "part"
     ],
     "numerical": [
       "number of cars in jordan",
@@ -14,19 +27,13 @@
       "failure rate",
       "price of the car",
       "repair or replacement cost",
-      "critically",
       "car total maintenance cost average",
-      "repair_to_car_price"
+      "critically",
+      "online price"
     ]
   },
-  "blocklist": [
-    "maintenance_to_price",
-    "on line price",
-    "online price",
-    "repair_to_price"
-  ],
   "thresholds": {
-    "low": 60.0,
-    "high": 197.51
+    "high": 197.51,
+    "low": 60.0
   }
 }
