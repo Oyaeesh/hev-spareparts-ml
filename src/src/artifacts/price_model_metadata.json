@@ -1,0 +1,31 @@
+{
+  "feature_schema": {
+    "categorical": [
+      "car type",
+      "made in",
+      "original/imitator",
+      "new\\used",
+      "selling location",
+      "service location (repair shop/automotive company",
+      "part"
+    ],
+    "numerical": [
+      "number of cars in jordan",
+      "car age",
+      "failure rate",
+      "price of the car",
+      "repair or replacement cost",
+      "car total maintenance cost average",
+      "critically"
+    ]
+  },
+  "blocklist": [
+    "maintenance_to_price",
+    "on line price",
+    "online price"
+  ],
+  "thresholds": {
+    "low": 60.0,
+    "high": 197.51
+  }
+}

@@ -1,4 +1,4 @@
-car type ,made in ,number of cars in jordan ,car age ,part ,failure rate ,price of the car ,original/imitator,new\used,selling location,service location (repair shop/automotive company,repair or replacement cost ,car total maintenance cost average,critically  ,on line price ,price 
+car type ,made in ,number of cars in jordan ,car age ,part ,failure rate ,price of the car ,original/imitator,new\used,selling location,service location (repair shop/automotive company,repair or replacement cost ,car total maintenance cost average,critically  ,online price ,price 
 4,1,1841,4,9,0.263157895,15000,1,0,1,1,10,8200,0.06,20,15
 2,3,686,1,12,0.0896,19500,1,1,3,2,30,9100,0.1297,71,87
 1,2,1924,12,24,0.0862,8700,1,0,1,1,10,5500,0.1275,56.08,60
