@@ -1,4 +1,4 @@
-"""Utilities for feature configuration shared by notebooks."""
+"""Feature configuration utilities shared by demand and price notebooks."""
 from __future__ import annotations
 
 import json
@@ -7,7 +7,6 @@ from typing import Dict, Iterable, List, MutableMapping, Optional, Sequence, Tup
 
 import pandas as pd
 
-# Baseline blocklist entries known to leak target information or duplicate labels.
 BASE_BLOCKLIST = {
     "price tier",
     "price_tier",
@@ -15,6 +14,8 @@ BASE_BLOCKLIST = {
     "price_category",
     "price bin",
     "price_bin",
+    "online price",
+    "on line price",
     "repair_to_price",
     "predicted_price",
     "target",
@@ -22,10 +23,7 @@ BASE_BLOCKLIST = {
 
 
 def _normalize(label: str) -> str:
-    """Normalize column names for comparisons."""
-    simplified = label.strip().lower()
-    while "\\\\" in simplified:
-        simplified = simplified.replace("\\\\", "\\")
+    simplified = label.strip().lower().replace("\\", "\\")
     return " ".join(simplified.split())
 
 
@@ -37,8 +35,6 @@ def sanitize_feature_lists(
     blocklist: Optional[Iterable[str]] = None,
     drop_part: bool = False,
 ) -> Tuple[List[str], List[str], set]:
-    """Return sanitized categorical/numeric feature lists and the resolved blocklist."""
-
     blocklist_resolved = set(blocklist or set())
     blocklist_resolved.update(BASE_BLOCKLIST)
 
@@ -50,7 +46,6 @@ def sanitize_feature_lists(
             blocklist_resolved.add(name)
         blocklist_norm.add(_normalize(name))
 
-    # Resolve blocklist names to actual dataframe columns when possible.
     for entry in list(blocklist_resolved):
         resolved = df_lookup.get(_normalize(entry))
         if resolved is not None:
@@ -78,9 +73,7 @@ def sanitize_feature_lists(
     cat_cols = _prepare(cat_cols_raw)
     num_cols = _prepare(num_cols_raw)
 
-    # Auto-include additional numeric columns created upstream (e.g., ratios).
     cat_norm = {_normalize(c) for c in cat_cols}
-
     for candidate in df.select_dtypes(include=["number", "bool"]).columns:
         candidate_norm = _normalize(candidate)
         if drop_part and candidate_norm == "part":
@@ -107,7 +100,6 @@ def save_feature_metadata(
     thresholds: Optional[MutableMapping[str, float]] = None,
     enabled: bool = True,
 ) -> Optional[Dict[str, object]]:
-    """Persist feature schema metadata for reuse across notebook sessions."""
     if not enabled:
         return None
 
@@ -129,7 +121,6 @@ def save_feature_metadata(
 
 
 def load_feature_metadata(path: Path) -> Dict[str, object]:
-    """Load persisted metadata, raising FileNotFoundError if absent."""
     metadata_path = Path(path)
     if not metadata_path.exists():
         raise FileNotFoundError(f"Metadata file not found: {metadata_path}")

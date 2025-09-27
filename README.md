@@ -1,121 +1,157 @@
 # HEV Spare Parts ML
-_Reproducible notebooks for demand classification and price prediction of hybrid-electric-vehicle (HEV) spare parts._
 
-**Corresponding author:** Omar Abueed (Oabueed1@binghamton.edu)  
-**Authors:** Osamah Yaeesh (oaliyaeesh@binghamton.edu), Wafa' AlAlaween (wafa.alalaween@ju.edu), Saleh Abueed (Salehabueed9@gmail.com), Abdallah Alalawin (AbdallahH_Ab@hu.edu.jo)
+Reproducible Jupyter notebooks for classifying **demand** and **price tiers** of hybrid electric vehicle (HEV) spare parts. The project contains two fully instrumented workflows that share a common feature taxonomy, preprocessing logic, model zoo, and SHAP-based explainability.
 
-This repository accompanies the paper:
+- **Demand notebook**: `src/HEV-SpareParts-Demand-Classification.ipynb`
+- **Price notebook**: `src/HEV-SpareParts-Price-Classification.ipynb`
 
-**A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Parts Using Their Price and Demand**
-
----
-
-## Paper abstract
-
-With the rapid growth of the hybrid electric vehicle (HEV) market, stakeholders must refine after-sales logistics, particularly Spare Parts (SPs) provisioning. Adequate forecasting of demand and pricing underpins these efforts. This paper presents a Feed Forward Artificial Neural Network (FF ANN) that, drawing on 15 predictor variables, assigns each spare part to low, medium, or high categories for both demand and price. The resulting scheme enables judicious inventory management, optimized procurement, and reduced operational spending by synchronizing supply with realistic forecasts. Explainable Artificial Intelligence (XAI) techniques were then incorporated to enhance model interpretability by identifying key influencing factors. The results indicated that factors such as failure rate, number of cars, car age, and average total maintenance cost have a high relative impact on demand prediction outcomes. Whereas factors such as part type, online price, and the new/used parts have high impacts on the price prediction model.
-
-_Keywords: Artificial neural network, Explainable AI, Hybrid electric vehicles, Supply Chain, Spare parts._
+Both notebooks now:
+- Expect the lower-case datasets `data/demand.csv` and `data/price.csv`
+- Offer a switch for grouped vs. stratified splits (`USE_GROUPED_SPLITS`)
+- Tune a feed-forward ANN and several classical baselines (SVC, Logistic Regression, ExtraTrees, SGD, LDA)
+- Display SHAP plots inline only (no figures are written to disk)
+- Aggregate one-hot encodings back to the original feature names for interpretability
 
 ---
 
 ## Repository structure
 
-.
-‚îú‚îÄ src/
-‚îÇ  ‚îî‚îÄ HEV-SpareParts-Demand-Classification.ipynb  # Demand classification end-to-end
-‚îú‚îÄ data/
-‚îÇ  ‚îî‚îÄ demand.csv                         # Sample dataset for the notebook
-‚îú‚îÄ requirements.txt                      # Pinned runtime deps
-‚îú‚îÄ README.md
-‚îú‚îÄ CITATION.cff
-‚îú‚îÄ LICENSE
-‚îî‚îÄ .gitignore
+```
+hev-spareparts-ml/
++- data/
+¶  +- demand.csv
+¶  +- price.csv
++- src/
+¶  +- HEV-SpareParts-Demand-Classification.ipynb
+¶  +- HEV-SpareParts-Price-Classification.ipynb
+¶  +- utils/feature_config.py
++- README.md
++- requirements.txt
++- CITATION.cff
++- LICENSE
++- plan.md
+```
+
+`utils/feature_config.py` centralises feature blocklists and metadata persistence for both notebooks.
 
 ---
 
-## What the demand notebook does
+## Environment setup
 
-- Drops exact duplicates.  
-- Creates **3 balanced demand bins** with pandas qcut.  
-- **Grouped train/test split by `part`** (test contains unseen parts ‚Üí prevents identity leakage).  
-- Preprocessing: log1p + StandardScaler for skewed numerics; StandardScaler for other numerics; OneHotEncoder for categoricals.  
-- Tunes an MLP via an exhaustive grid (layers/units/dropout/L2/learning rate) with EarlyStopping and ReduceLROnPlateau.  
-- Saves artifacts: `training_validation_curves.png`, `confusion_matrix.png`, `demand_clf.keras`.  
-- Seeds fixed for numpy, random, and tensorflow.
+1. **Clone the repo**
+   ```powershell
+   git clone https://github.com/Oyaeesh/hev-spareparts-ml.git
+   cd hev-spareparts-ml
+   ```
+2. **Create and activate a virtual environment (Windows example)**
+   ```powershell
+   py -3 -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   python -m pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+3. **(Optional) Register a Jupyter kernel**
+   ```powershell
+   python -m ipykernel install --user --name hev-spareparts-ml --display-name "Python (.venv) hev-spareparts-ml"
+   ```
+4. **Verify datasets**
+   Ensure `data/demand.csv` and `data/price.csv` exist. Override locations via `DEMAND_DATA_PATH` or `PRICE_DATA_PATH` if needed.
+5. **Open notebooks in VS Code / JupyterLab** and run all cells.
 
-**Expected CSV columns (exact header text)**
-
-Categorical:  
-`car type`, `made in`, `original/imitator`, `new\used`, `selling location`, `service location (repair shop/automotive company`, `car total maintenance cost average`, `part` (used for grouping; feature usage controlled by `DROP_PART` in the notebook)
-
-Numeric:  
-`number of cars in jordan`, `car age`, `failure rate`, `price of the car`, `repair or replacement cost`, `critically`, `on line price`
-
-Target:  
-`demand` (continuous; binned into 3 classes)
-
-If any column is missing, the notebook raises a clear error listing the missing names.
-
----
-
-## Quick start (Windows / VS Code)
-
-1) **Clone and open the repo**  
-Run: `git clone https://github.com/Oyaeesh/hev-spareparts-ml.git` then `cd hev-spareparts-ml`.
-
-2) **Create & activate a virtual environment**  
-Run: `py -3 -m venv .venv`  
-If activation is blocked: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`  
-Activate: `.\.venv\Scripts\Activate.ps1`  
-Upgrade pip & install deps: `python -m pip install --upgrade pip` then `pip install -r requirements.txt`.
-
-3) **(Optional) Add a Jupyter kernel for VS Code**  
-Run: `python -m ipykernel install --user --name hev-spareparts-ml --display-name "Python (.venv) hev-spareparts-ml"`.
-
-4) **Ensure the dataset is available**
-The notebook expects `data/demand.csv` (a sample file is provided).
-In the notebook we reference it via a relative path:
-`from pathlib import Path`
-`file_path = Path("data") / "demand.csv"`
-
-5) **Run the notebook**
-Open `src/HEV-SpareParts-Demand-Classification.ipynb` in VS Code ‚Üí select the `Python (.venv) hev-spareparts-ml` kernel ‚Üí run all cells.
+For automation you can use:
+```powershell
+python -m nbclient --execute src/HEV-SpareParts-Demand-Classification.ipynb --path src
+python -m nbclient --execute src/HEV-SpareParts-Price-Classification.ipynb --path src
+```
 
 ---
 
-## Reproducing results
+## Shared feature taxonomy
 
-- Random seeds are fixed (`SEED = 42`) for numpy, random, and tensorflow.  
-- Evaluation uses GroupShuffleSplit / GroupKFold by `part`, ensuring the test (and each validation fold) contains unseen parts.
+| Column                                   | Type        | Notes                                      |
+|------------------------------------------|-------------|--------------------------------------------|
+| `car type`, `made in`, `original/imitator`, `new\used`, `selling location`, `service location (repair shop/automotive company` | categorical | One-hot encoded (handle unknown gracefully) |
+| `number of cars in jordan`, `car age`, `failure rate`, `price of the car`, `repair or replacement cost`, `car total maintenance cost average`, `critically`, `online price`, `price` | numeric | Skewed subset log-transformed before scaling |
+| `part`                                   | categorical | Always retained as a feature in the price notebook; optional (`DROP_PART`) in demand; used for grouped splits |
+| Targets                                  | numeric     | `demand`, `price` ? binned into {low, medium, high} |
 
----
-
-## Price prediction
-
-A companion notebook for **price** classification (low/medium/high) will mirror the same engineering (grouped splits, preprocessing, tuning) once added. The README will be updated when that notebook becomes available.
-
----
-
-## Citing this repository
-
-Use the ‚ÄúCite this repository‚Äù button on GitHub (powered by `CITATION.cff`) or the short form below:
-
-Abueed, O., Yaeesh, O., AlAlaween, W., Abueed, S., & Alalawin, A. (2025). _A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Parts Using Their Price and Demand_ (v0.1.0) [Software]. https://github.com/Oyaeesh/hev-spareparts-ml
+The price notebook now loads the lower-case `price.csv`; both notebooks print the effective feature lists after sanitation.
 
 ---
 
-## Code availability (for your paper)
+## Model pipelines
 
-The source code supporting the findings of this study is publicly available at **https://github.com/Oyaeesh/hev-spareparts-ml** under the MIT License. It includes an end-to-end demand classifier notebook and a companion notebook for price prediction.
+- **Preprocessing** (`make_preprocessor`)
+  - Log1p + StandardScaler on skewed numerics
+  - StandardScaler on remaining numerics (tree-style pipelines omit the scaler)
+  - OneHotEncoder (`handle_unknown='ignore'`) on categoricals
+- **ANN grid** (`GRID`)
+  - Layers: 1ñ3 | Units: 16 / 32
+  - Dropout: 0.0 / 0.2 | L2: 0 / 1e-4
+  - Learning rate: 1e-3 / 3e-3 / 1e-2
+  - EarlyStopping and ReduceLROnPlateau now share repo-level constants (`EARLY_STOPPING_PATIENCE = 10`, `EARLY_STOPPING_MIN_DELTA = 1e-4`)
+- **Classical grid** (`GRIDS_CLASSIC`)
+  - `svc_rbf`, `logreg`, `sgd`, `lda`
+  - **ExtraTrees** intentionally constrained (`n_estimators: 100ñ200`, `max_depth: 8ñ12`, `min_samples_leaf: 5ñ10` for price; `n_estimators: 200ñ300`, `max_depth: 14ñ18`, `min_samples_leaf: 4ñ6` for demand) to avoid unrealistically high scores from part-style leakage.
 
 ---
 
-## License
+## Splitting strategy
 
-Released under the **MIT License** (see `LICENSE`).
+Both notebooks expose `USE_GROUPED_SPLITS`:
+
+- **Demand** default: `True` ? GroupShuffleSplit / GroupKFold on `part`
+- **Price** default: `False` ? StratifiedShuffleSplit / StratifiedKFold on price-tier bins (suitable when you only score known part types)
+
+Change the flag at the top of each notebook to switch behaviour. All downstream helpers (ANN tuning, classical model selection, CV, leakage audit) respect the flag.
 
 ---
 
-## Contact
+## Interpretability workflow (SHAP)
 
-Questions or issues: open a GitHub issue or email the corresponding author (Omar Abueed).
+- DeepExplainer preferred; automatically falls back to KernelExplainer if GPU/CUDA incompatibility occurs.
+- We aggregate SHAP contributions back to the raw feature namesóone-hot encoded columns are summed by source feature.
+- Global summary bar charts and class-specific beeswarm plots are displayed inline only; no image files are written.
+- The notebooks print:
+  - Top aggregated absolute SHAP importances
+  - Per-class top contributors (first 10 values)
+
+This workflow reuses the in-memory ANN and preprocessor; ensure the training cells run before the SHAP section.
+
+---
+
+## Outputs
+
+| Notebook | Metric highlights | SHAP output |
+|----------|------------------|-------------|
+| **Demand** | ANN accuracy ò 0.99 (grouped) | Inline summary + beeswarm, aggregated by raw feature |
+| **Price**  | ANN accuracy ò 0.99 (stratified by price tier) | Same inline plots; no filesystem artifacts |
+
+ExtraTrees models now report more conservative scores (ò0.90 macro F1 for price, ò0.88ñ0.93 for demand depending on grouping) thanks to the updated hyperparameter grids.
+
+---
+
+## Reproducibility & troubleshooting
+
+- Seeds (`SEED = 42`) applied to numpy and TensorFlow.
+- Each notebook prints explicit missing-column messages if the CSV schema drifts.
+- SHAP requires the datasets; if you store them elsewhere, set `PRICE_DATA_PATH` or `DEMAND_DATA_PATH` before executing the SHAP cells.
+- Notebooks default to inline visualisation only; remove the final `plt.show()` blocks if you need headless execution.
+
+---
+
+## Citation
+
+```
+Abueed, O., Yaeesh, O., AlAlaween, W., Abueed, S., & Alalawin, A. (2025).
+A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Parts Using Their Price and Demand (v0.1.0) [Software].
+https://github.com/Oyaeesh/hev-spareparts-ml
+```
+
+A machine-readable `CITATION.cff` is included; use the GitHub ìCite this repositoryî button for alternate formats.
+
+---
+
+## License & contact
+
+Released under the [MIT License](LICENSE). For questions, open a GitHub issue or email Omar Abueed (Oabueed1@binghamton.edu).
