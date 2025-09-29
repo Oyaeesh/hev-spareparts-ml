@@ -19,17 +19,15 @@ Both notebooks now:
 ```
 hev-spareparts-ml/
 +- data/
-¶  +- demand.csv
-¶  +- price.csv
+¬¶  +- demand.csv
+¬¶  +- price.csv
 +- src/
-¶  +- HEV-SpareParts-Demand-Classification.ipynb
-¶  +- HEV-SpareParts-Price-Classification.ipynb
-¶  +- utils/feature_config.py
+¬¶  +- HEV-SpareParts-Demand-Classification.ipynb
+¬¶  +- HEV-SpareParts-Price-Classification.ipynb
 +- README.md
 +- requirements.txt
 +- CITATION.cff
 +- LICENSE
-+- plan.md
 ```
 
 `utils/feature_config.py` centralises feature blocklists and metadata persistence for both notebooks.
@@ -86,13 +84,13 @@ The price notebook now loads the lower-case `price.csv`; both notebooks print th
   - StandardScaler on remaining numerics (tree-style pipelines omit the scaler)
   - OneHotEncoder (`handle_unknown='ignore'`) on categoricals
 - **ANN grid** (`GRID`)
-  - Layers: 1ñ3 | Units: 16 / 32
+  - Layers: 1‚Äì3 | Units: 16 / 32
   - Dropout: 0.0 / 0.2 | L2: 0 / 1e-4
   - Learning rate: 1e-3 / 3e-3 / 1e-2
   - EarlyStopping and ReduceLROnPlateau now share repo-level constants (`EARLY_STOPPING_PATIENCE = 10`, `EARLY_STOPPING_MIN_DELTA = 1e-4`)
 - **Classical grid** (`GRIDS_CLASSIC`)
   - `svc_rbf`, `logreg`, `sgd`, `lda`
-  - **ExtraTrees** intentionally constrained (`n_estimators: 100ñ200`, `max_depth: 8ñ12`, `min_samples_leaf: 5ñ10` for price; `n_estimators: 200ñ300`, `max_depth: 14ñ18`, `min_samples_leaf: 4ñ6` for demand) to avoid unrealistically high scores from part-style leakage.
+  - **ExtraTrees** intentionally constrained (`n_estimators: 100‚Äì200`, `max_depth: 8‚Äì12`, `min_samples_leaf: 5‚Äì10` for price; `n_estimators: 200‚Äì300`, `max_depth: 14‚Äì18`, `min_samples_leaf: 4‚Äì6` for demand) to avoid unrealistically high scores from part-style leakage.
 
 ---
 
@@ -110,7 +108,7 @@ Change the flag at the top of each notebook to switch behaviour. All downstream 
 ## Interpretability workflow (SHAP)
 
 - DeepExplainer preferred; automatically falls back to KernelExplainer if GPU/CUDA incompatibility occurs.
-- We aggregate SHAP contributions back to the raw feature namesóone-hot encoded columns are summed by source feature.
+- We aggregate SHAP contributions back to the raw feature names‚Äîone-hot encoded columns are summed by source feature.
 - Global summary bar charts and class-specific beeswarm plots are displayed inline only; no image files are written.
 - The notebooks print:
   - Top aggregated absolute SHAP importances
@@ -124,10 +122,10 @@ This workflow reuses the in-memory ANN and preprocessor; ensure the training cel
 
 | Notebook | Metric highlights | SHAP output |
 |----------|------------------|-------------|
-| **Demand** | ANN accuracy ò 0.99 (grouped) | Inline summary + beeswarm, aggregated by raw feature |
-| **Price**  | ANN accuracy ò 0.99 (stratified by price tier) | Same inline plots; no filesystem artifacts |
+| **Demand** | ANN accuracy Àú 0.99 (grouped) | Inline summary + beeswarm, aggregated by raw feature |
+| **Price**  | ANN accuracy Àú 0.99 (stratified by price tier) | Same inline plots; no filesystem artifacts |
 
-ExtraTrees models now report more conservative scores (ò0.90 macro F1 for price, ò0.88ñ0.93 for demand depending on grouping) thanks to the updated hyperparameter grids.
+ExtraTrees models now report more conservative scores (Àú0.90 macro F1 for price, Àú0.88‚Äì0.93 for demand depending on grouping) thanks to the updated hyperparameter grids.
 
 ---
 
@@ -148,7 +146,7 @@ A Systematic AI-based Paradigm for Classifying Hybrid Electric Vehicle Spare Par
 https://github.com/Oyaeesh/hev-spareparts-ml
 ```
 
-A machine-readable `CITATION.cff` is included; use the GitHub ìCite this repositoryî button for alternate formats.
+A machine-readable `CITATION.cff` is included; use the GitHub ‚ÄúCite this repository‚Äù button for alternate formats.
 
 ---
 
